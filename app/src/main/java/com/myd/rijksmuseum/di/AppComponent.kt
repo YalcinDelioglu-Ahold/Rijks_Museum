@@ -1,7 +1,7 @@
 package com.myd.rijksmuseum.di
 
 import android.content.Context
-import com.myd.rijksmuseum.RijksMuseumApp
+import com.myd.rijksmuseum.framework.RijksMuseumApp
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule

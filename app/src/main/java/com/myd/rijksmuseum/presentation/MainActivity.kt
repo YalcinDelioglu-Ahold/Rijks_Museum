@@ -1,7 +1,8 @@
-package com.myd.rijksmuseum
+package com.myd.rijksmuseum.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.myd.rijksmuseum.R
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector

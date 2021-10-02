@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/collectionsFragment">
+
+    <fragment
+        android:id="@+id/collectionsFragment"
+        android:name="com.myd.rijksmuseum.presentation.fragments.CollectionsFragment"
+        android:label="fragment_collections"
+        tools:layout="@layout/collections_fragment" >
+        <action
+            android:id="@+id/action_collectionsFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@animator/fragment_fade_enter"
+            app:exitAnim="@animator/fragment_fade_exit"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.myd.rijksmuseum.presentation.fragments.DetailsFragment"
+        android:label="details_fragment"
+        tools:layout="@layout/details_fragment">
+        <action
+            android:id="@+id/action_detailsFragment_to_collectionsFragment"
+            app:destination="@id/collectionsFragment"
+            app:enterAnim="@animator/fragment_fade_enter"
+            app:exitAnim="@animator/fragment_fade_exit"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim"
+            app:popUpTo="@id/collectionsFragment" />
+        <argument
+            android:name="objectNumber"
+            android:defaultValue="RP-P-2006-905"
+            app:argType="string" />
+    </fragment>
+</navigation>

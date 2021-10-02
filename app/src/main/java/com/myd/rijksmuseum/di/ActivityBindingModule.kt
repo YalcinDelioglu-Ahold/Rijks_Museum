@@ -1,6 +1,6 @@
 package com.myd.rijksmuseum.di
 
-import com.myd.rijksmuseum.MainActivity
+import com.myd.rijksmuseum.presentation.MainActivity
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
