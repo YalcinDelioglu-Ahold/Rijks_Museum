@@ -3,8 +3,9 @@ package com.myd.rijksmuseum.data
 import com.myd.rijksmuseum.domain.Collection
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
-class CollectionRepository(
+class CollectionRepository @Inject internal constructor(
     private val collectionDataSource: CollectionDataSource,
     private val networkService: NetworkService
 ) {

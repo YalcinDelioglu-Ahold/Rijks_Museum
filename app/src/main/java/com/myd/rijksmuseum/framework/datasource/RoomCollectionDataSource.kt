@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class RoomCollectionsDataSource @Inject internal constructor(
+class RoomCollectionDataSource @Inject internal constructor(
     private val collectionDao: CollectionDao
 ) : CollectionDataSource {
     override suspend fun getCollections(pageNumber: Int): Flow<List<Collection>> =

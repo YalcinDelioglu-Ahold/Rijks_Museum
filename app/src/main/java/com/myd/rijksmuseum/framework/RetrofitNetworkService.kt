@@ -38,10 +38,10 @@ class RetrofitNetworkService : NetworkService {
         services.getDetails(objectNumber)
 
     interface Services {
-        @GET("?key=$API_KEY&s=$SORT_BY&ps=$NUMBER_OF_RESULT_PER_PAGE")
+        @GET("collection?key=$API_KEY&s=$SORT_BY&ps=$NUMBER_OF_RESULT_PER_PAGE")
         suspend fun fetchCollections(@Query("p") pageNumber: Int): Flow<List<Collection>>
 
-        @GET("{objectNumber}?key=$API_KEY")
+        @GET("collection/{objectNumber}?key=$API_KEY")
         suspend fun getDetails(@Path("objectNumber") objectNumber: String): Flow<Details>
     }
 }

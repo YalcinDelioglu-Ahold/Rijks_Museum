@@ -3,6 +3,8 @@ package com.myd.rijksmuseum.di
 import android.content.Context
 import androidx.room.Room
 import com.myd.rijksmuseum.framework.RetrofitNetworkService
+import com.myd.rijksmuseum.framework.datasource.RoomCollectionDataSource
+import com.myd.rijksmuseum.framework.datasource.RoomDetailsDataSource
 import com.myd.rijksmuseum.framework.db.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -32,5 +34,30 @@ object AppModule {
     @Singleton
     @Provides
     fun provideNetworkService() = RetrofitNetworkService()
+
+    @Singleton
+    @Provides
+    fun provideCoreComponent(
+        networkService: RetrofitNetworkService,
+        collectionDataSource: RoomCollectionDataSource,
+        detailsDataSource: RoomDetailsDataSource
+    ): CoreComponent =
+        DaggerCoreComponent.factory().create(
+            networkService,
+            collectionDataSource,
+            detailsDataSource
+        )
+
+    @Singleton
+    @Provides
+    fun provideGetCollectionsUseCase(
+        coreComponent: CoreComponent
+    ) = coreComponent.getCollectionsUseCase()
+
+    @Singleton
+    @Provides
+    fun provideGetDetailsUseCase(
+        coreComponent: CoreComponent
+    ) = coreComponent.getDetailsUseCase()
 }
 
