@@ -8,7 +8,7 @@ import com.myd.rijksmuseum.framework.db.entity.CollectionEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface CollectionsDao {
+interface CollectionDao {
     companion object {
         private const val PAGE_SIZE = 10
     }
