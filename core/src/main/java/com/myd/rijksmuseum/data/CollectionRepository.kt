@@ -12,7 +12,6 @@ class CollectionRepository(
         val collections = collectionDataSource.getCollections(pageNumber)
         networkService.fetchCollections(pageNumber).collect {
             collectionDataSource.updateCollections(it)
-            collections.emit(it)
         }
         return collections
     }

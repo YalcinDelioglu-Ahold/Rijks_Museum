@@ -7,8 +7,6 @@ import androidx.room.Query
 import com.myd.rijksmuseum.framework.db.entity.CollectionEntity
 import kotlinx.coroutines.flow.Flow
 
-
-
 @Dao
 interface CollectionsDao {
     companion object {
@@ -18,5 +16,5 @@ interface CollectionsDao {
     suspend fun updateCollections(collections: List<CollectionEntity>)
 
     @Query("SELECT * FROM collections ORDER BY principalOrFirstMaker LIMIT ($PAGE_SIZE * :pageNumber)")
-    suspend fun getCollections(pageNumber: Int): Flow<List<CollectionEntity>>
+    fun getCollections(pageNumber: Int): Flow<List<CollectionEntity>>
 }

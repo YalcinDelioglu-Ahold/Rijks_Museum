@@ -12,7 +12,6 @@ class DetailsRepository(
         val details = detailsDataSource.getDetails(objectNumber)
         networkService.getDetails(objectNumber).collect {
             detailsDataSource.updateDetails(it)
-            details.emit(it)
         }
         return details
     }

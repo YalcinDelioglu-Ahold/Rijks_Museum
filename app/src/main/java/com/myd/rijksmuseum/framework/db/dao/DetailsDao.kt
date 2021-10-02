@@ -13,5 +13,5 @@ interface DetailsDao {
     suspend fun updateDetails(details: DetailsEntity)
 
     @Query("SELECT * FROM details WHERE objectNumber = :objectNumber")
-    suspend fun getDetails(objectNumber: String): Flow<DetailsEntity>
+    fun getDetails(objectNumber: String): Flow<DetailsEntity>
 }
