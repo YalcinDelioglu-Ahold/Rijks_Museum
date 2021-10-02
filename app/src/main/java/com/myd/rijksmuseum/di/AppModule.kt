@@ -2,6 +2,7 @@ package com.myd.rijksmuseum.di
 
 import android.content.Context
 import androidx.room.Room
+import com.myd.rijksmuseum.framework.RetrofitNetworkService
 import com.myd.rijksmuseum.framework.db.AppDatabase
 import dagger.Module
 import dagger.Provides
@@ -22,10 +23,14 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideCollectonDao(db: AppDatabase) = db.collectionDao()
+    fun provideCollectionDao(db: AppDatabase) = db.collectionDao()
 
     @Singleton
     @Provides
     fun provideDetailsDao(db: AppDatabase) = db.detailsDao()
+
+    @Singleton
+    @Provides
+    fun provideNetworkService() = RetrofitNetworkService()
 }
 
