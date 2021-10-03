@@ -2,6 +2,7 @@ package com.myd.rijksmuseum.di
 
 import android.content.Context
 import com.myd.rijksmuseum.framework.RijksMuseumApp
+import com.myd.rijksmuseum.presentation.di.ViewModelModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -14,6 +15,7 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         ActivityBindingModule::class,
+        ViewModelModule::class,
         AppModule::class
     ]
 )

@@ -1,4 +1,4 @@
-package com.myd.rijksmuseum.presentation.viewmodels.collections
+package com.myd.rijksmuseum.presentation.viewmodels
 
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,8 +12,7 @@ import javax.inject.Inject
 
 class CollectionsViewModel @Inject internal constructor(
     private val getCollectionsUseCase: GetCollectionsUseCase
-) :
-    ViewModel() {
+) : ViewModel() {
     val pageNumberLiveData = MutableLiveData(1)
 
     val collectionsLiveData = MediatorLiveData<List<Collection>>().apply {

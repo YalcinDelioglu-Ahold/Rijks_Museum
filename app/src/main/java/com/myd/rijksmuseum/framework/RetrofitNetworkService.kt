@@ -3,7 +3,8 @@ package com.myd.rijksmuseum.framework
 import com.myd.rijksmuseum.data.NetworkService
 import com.myd.rijksmuseum.domain.Collection
 import com.myd.rijksmuseum.domain.Details
-import kotlinx.coroutines.flow.Flow
+import com.myd.rijksmuseum.framework.db.entity.CollectionEntity
+import com.myd.rijksmuseum.framework.db.entity.DetailsEntity
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -31,17 +32,37 @@ class RetrofitNetworkService : NetworkService {
 
     private val services = retrofit.create(Services::class.java)
 
-    override suspend fun fetchCollections(pageNumber: Int): Flow<List<Collection>> =
-        services.fetchCollections(pageNumber)
+    override suspend fun fetchCollections(pageNumber: Int): List<Collection> =
+        services.fetchCollections(pageNumber).artObjects.map {
+            Collection(
+                it.id,
+                it.objectNumber,
+                it.title,
+                it.principalOrFirstMaker,
+                it.webImage?.url
+            )
+        }
 
-    override suspend fun getDetails(objectNumber: String): Flow<Details> =
-        services.getDetails(objectNumber)
+    override suspend fun getDetails(objectNumber: String): Details =
+        with(services.getDetails(objectNumber)) {
+            Details(
+                this.id,
+                this.objectNumber,
+                this.title,
+                this.longTitle,
+                this.principalMaker,
+                this.objectTypes,
+                this.webImage?.url
+            )
+        }
 
     interface Services {
-        @GET("collection?key=$API_KEY&s=$SORT_BY&ps=$NUMBER_OF_RESULT_PER_PAGE")
-        suspend fun fetchCollections(@Query("p") pageNumber: Int): Flow<List<Collection>>
+        @GET("collection?key=$API_KEY&imgonly=True&s=$SORT_BY&ps=$NUMBER_OF_RESULT_PER_PAGE")
+        suspend fun fetchCollections(@Query("p") pageNumber: Int): FetchResponse
 
         @GET("collection/{objectNumber}?key=$API_KEY")
-        suspend fun getDetails(@Path("objectNumber") objectNumber: String): Flow<Details>
+        suspend fun getDetails(@Path("objectNumber") objectNumber: String): DetailsEntity
     }
 }
+
+data class FetchResponse(val artObjects: List<CollectionEntity>)

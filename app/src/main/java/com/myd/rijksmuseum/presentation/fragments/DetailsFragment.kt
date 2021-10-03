@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.myd.rijksmuseum.R
 import com.myd.rijksmuseum.databinding.DetailsFragmentBinding
+import com.myd.rijksmuseum.presentation.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
-class DetailsFragment @Inject internal constructor(): Fragment() {
+class DetailsFragment @Inject internal constructor(
+    private val viewModelFactory: ViewModelFactory
+): Fragment() {
     private lateinit var binding: DetailsFragmentBinding
 
     override fun onCreateView(
