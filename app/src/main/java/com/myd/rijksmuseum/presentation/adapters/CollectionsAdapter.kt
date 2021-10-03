@@ -50,9 +50,12 @@ class CollectionsAdapter(
 private class CollectionDiffCallback : DiffUtil.ItemCallback<Collection>() {
     override fun areItemsTheSame(oldItem: Collection, newItem: Collection): Boolean {
         return oldItem.id == newItem.id
+                && oldItem.objectNumber == newItem.objectNumber
     }
 
     override fun areContentsTheSame(oldItem: Collection, newItem: Collection): Boolean {
-        return oldItem == newItem
+        return oldItem.objectNumber == newItem.objectNumber
+                && oldItem.principalMaker == newItem.principalMaker
+                && oldItem.imageUrl == newItem.imageUrl
     }
 }

@@ -13,7 +13,7 @@ import javax.inject.Inject
 class CollectionsViewModel @Inject internal constructor(
     private val getCollectionsUseCase: GetCollectionsUseCase
 ) : ViewModel() {
-    val pageNumberLiveData = MutableLiveData(1)
+    private val pageNumberLiveData = MutableLiveData(1)
 
     val collectionsLiveData = MediatorLiveData<List<Collection>>().apply {
         addSource(pageNumberLiveData) { pageNumber ->
@@ -23,5 +23,10 @@ class CollectionsViewModel @Inject internal constructor(
                 }
             }
         }
+    }
+
+    fun loadMore() {
+        val currentPageNumber = pageNumberLiveData.value
+        pageNumberLiveData.postValue(currentPageNumber?.plus(1))
     }
 }

@@ -35,6 +35,7 @@ class CollectionsFragment @Inject internal constructor(
             false
         )
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.collectionsViewModel = viewModel
 
         val layoutManager = LinearLayoutManager(context)
         binding.list.layoutManager = layoutManager
