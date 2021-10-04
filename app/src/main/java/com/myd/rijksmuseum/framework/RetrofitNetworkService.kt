@@ -5,6 +5,8 @@ import com.myd.rijksmuseum.domain.Collection
 import com.myd.rijksmuseum.domain.Details
 import com.myd.rijksmuseum.framework.db.entity.CollectionEntity
 import com.myd.rijksmuseum.framework.db.entity.DetailsEntity
+import com.myd.rijksmuseum.framework.db.entity.toCollection
+import com.myd.rijksmuseum.framework.db.entity.toDetails
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,26 +36,12 @@ class RetrofitNetworkService : NetworkService {
 
     override suspend fun fetchCollections(pageNumber: Int): List<Collection> =
         services.fetchCollections(pageNumber).artObjects.map {
-            Collection(
-                it.id,
-                it.objectNumber,
-                it.title,
-                it.principalOrFirstMaker,
-                it.webImage.url
-            )
+            it.toCollection()
         }
 
     override suspend fun getDetails(objectNumber: String): Details =
-        with(services.getDetails(objectNumber)) {
-            Details(
-                this.artObject.id,
-                this.artObject.objectNumber,
-                this.artObject.title,
-                this.artObject.longTitle,
-                this.artObject.principalMaker,
-                this.artObject.objectTypes,
-                this.artObject.webImage.url
-            )
+        with(services.getDetails(objectNumber).artObject) {
+            this.toDetails()
         }
 
     interface Services {
