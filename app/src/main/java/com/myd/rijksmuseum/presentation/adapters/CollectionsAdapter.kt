@@ -8,13 +8,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.myd.rijksmuseum.databinding.CollectionsItemBinding
 import com.myd.rijksmuseum.domain.Collection
+import com.myd.rijksmuseum.presentation.di.FragmentScope
 import com.myd.rijksmuseum.presentation.fragments.CollectionsFragmentDirections
+import javax.inject.Inject
 
-class CollectionsAdapter(
-    private val navController: NavController
-) : ListAdapter<Collection, CollectionsAdapter.CollectionItemViewHolder>(
-    CollectionDiffCallback()
-) {
+@FragmentScope
+class CollectionsAdapter @Inject internal constructor() :
+    ListAdapter<Collection, CollectionsAdapter.CollectionItemViewHolder>(
+        CollectionDiffCallback()
+    ) {
+
+    /**
+     * Item click listener
+     */
+    var onItemClickListener: ((Collection) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionItemViewHolder =
         CollectionItemViewHolder(
@@ -37,10 +44,9 @@ class CollectionsAdapter(
                 collection = item
 
                 itemView.setOnClickListener {
-                    val action =
-                        CollectionsFragmentDirections.actionCollectionsFragmentToDetailsFragment()
-                    action.objectNumber = item.objectNumber
-                    navController.navigate(action)
+                    onItemClickListener?.let { listener ->
+                        listener(item)
+                    }
                 }
             }
         }

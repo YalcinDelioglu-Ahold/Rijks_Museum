@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.myd.rijksmuseum.domain.Collection
 import com.myd.rijksmuseum.domain.Details
 import com.myd.rijksmuseum.launchDataFetch
+import com.myd.rijksmuseum.presentation.di.FragmentScope
 import com.myd.rijksmuseum.usecases.GetDetailsUseCase
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
+@FragmentScope
 class DetailsViewModel @Inject internal constructor(
     private val getDetailsUseCase: GetDetailsUseCase
 ) : ViewModel() {

@@ -12,16 +12,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.myd.rijksmuseum.R
 import com.myd.rijksmuseum.databinding.CollectionsFragmentBinding
 import com.myd.rijksmuseum.presentation.adapters.CollectionsAdapter
+import com.myd.rijksmuseum.presentation.di.FragmentScope
 import com.myd.rijksmuseum.presentation.viewmodels.CollectionsViewModel
 import com.myd.rijksmuseum.presentation.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
+@FragmentScope
 class CollectionsFragment @Inject internal constructor(
     private val viewModelFactory: ViewModelFactory
 ) : Fragment() {
     private lateinit var binding: CollectionsFragmentBinding
 
     private val viewModel: CollectionsViewModel by viewModels { viewModelFactory }
+
+    @Inject
+    lateinit var adapter: CollectionsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,8 +44,14 @@ class CollectionsFragment @Inject internal constructor(
 
         val layoutManager = LinearLayoutManager(context)
         binding.list.layoutManager = layoutManager
-        val adapter = CollectionsAdapter(findNavController())
         binding.list.adapter = adapter
+
+        adapter.onItemClickListener = {
+            val action =
+                CollectionsFragmentDirections.actionCollectionsFragmentToDetailsFragment()
+            action.objectNumber = it.objectNumber
+            findNavController().navigate(action)
+        }
 
         viewModel.collectionsLiveData.observe(viewLifecycleOwner) {
             adapter.submitList(it)
