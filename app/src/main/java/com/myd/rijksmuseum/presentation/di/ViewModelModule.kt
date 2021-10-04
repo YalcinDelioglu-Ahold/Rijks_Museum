@@ -12,14 +12,17 @@ import dagger.multibindings.IntoMap
 @Module
 abstract class ViewModelModule {
 
+    @FragmentScope
     @Binds
     internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
+    @FragmentScope
     @Binds
     @IntoMap
     @ViewModelKey(CollectionsViewModel::class)
     internal abstract fun bindCollectionsViewModel(viewModel: CollectionsViewModel): ViewModel
 
+    @FragmentScope
     @Binds
     @IntoMap
     @ViewModelKey(DetailsViewModel::class)

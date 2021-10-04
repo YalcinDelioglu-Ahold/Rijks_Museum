@@ -6,11 +6,12 @@ import com.myd.rijksmuseum.framework.RetrofitNetworkService
 import com.myd.rijksmuseum.framework.datasource.RoomCollectionDataSource
 import com.myd.rijksmuseum.framework.datasource.RoomDetailsDataSource
 import com.myd.rijksmuseum.framework.db.AppDatabase
+import com.myd.rijksmuseum.presentation.di.NavHostModule
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [NavHostModule::class])
 object AppModule {
     private const val DATABASE_NAME = "rijks-museum-db"
 
