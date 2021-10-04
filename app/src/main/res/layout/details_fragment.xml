@@ -1,10 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="detailsViewModel"
+            type="com.myd.rijksmuseum.presentation.viewmodels.DetailsViewModel" />
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal">
+        <ImageView
+            android:id="@+id/collection_image"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="16dp"
+            android:scaleType="fitCenter"
+            app:imageFromUrl="@{detailsViewModel.detailsLiveData.imageUrl}" />
+        <TextView
+            android:id="@+id/object_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="24sp"
+            android:gravity="center_horizontal"
+            android:text="@{@string/object_number(detailsViewModel.detailsLiveData.objectNumber)}" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="24sp"
+            android:gravity="center_horizontal"
+            android:text="@{@string/title(detailsViewModel.detailsLiveData.title)}" />
+        <TextView
+            android:id="@+id/long_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="24sp"
+            android:gravity="center_horizontal"
+            android:text="@{@string/long_title(detailsViewModel.detailsLiveData.longTitle)}" />
+        <TextView
+            android:id="@+id/principal_maker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="24sp"
+            android:gravity="center_horizontal"
+            android:text="@{@string/principal_maker(detailsViewModel.detailsLiveData.principalMaker)}" />
+        <TextView
+            android:id="@+id/object_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textSize="24sp"
+            android:gravity="center_horizontal"
+            android:text="@{@string/object_type(detailsViewModel.detailsLiveData.objectTypes.get(0))}" />
     </LinearLayout>
 </layout>

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Rijks Museum</string>
+    <string name="object_number">Object Number: %1$s</string>
+    <string name="title">Title: %1$s</string>
+    <string name="long_title">Long Title: %1$s</string>
+    <string name="principal_maker">Principle maker: %1$s</string>
+    <string name="object_type">Object type: %1$s</string>
 </resources>

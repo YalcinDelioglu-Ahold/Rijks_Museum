@@ -39,20 +39,20 @@ class RetrofitNetworkService : NetworkService {
                 it.objectNumber,
                 it.title,
                 it.principalOrFirstMaker,
-                it.webImage?.url
+                it.webImage.url
             )
         }
 
     override suspend fun getDetails(objectNumber: String): Details =
         with(services.getDetails(objectNumber)) {
             Details(
-                this.id,
-                this.objectNumber,
-                this.title,
-                this.longTitle,
-                this.principalMaker,
-                this.objectTypes,
-                this.webImage?.url
+                this.artObject.id,
+                this.artObject.objectNumber,
+                this.artObject.title,
+                this.artObject.longTitle,
+                this.artObject.principalMaker,
+                this.artObject.objectTypes,
+                this.artObject.webImage.url
             )
         }
 
@@ -61,8 +61,10 @@ class RetrofitNetworkService : NetworkService {
         suspend fun fetchCollections(@Query("p") pageNumber: Int): FetchResponse
 
         @GET("collection/{objectNumber}?key=$API_KEY")
-        suspend fun getDetails(@Path("objectNumber") objectNumber: String): DetailsEntity
+        suspend fun getDetails(@Path("objectNumber") objectNumber: String): GetDetailsResponse
     }
 }
 
 data class FetchResponse(val artObjects: List<CollectionEntity>)
+
+data class GetDetailsResponse(val artObject: DetailsEntity)

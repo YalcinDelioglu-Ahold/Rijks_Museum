@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.myd.rijksmuseum.R
 import com.myd.rijksmuseum.databinding.DetailsFragmentBinding
+import com.myd.rijksmuseum.presentation.viewmodels.DetailsViewModel
 import com.myd.rijksmuseum.presentation.viewmodels.ViewModelFactory
 import javax.inject.Inject
 
@@ -15,6 +17,8 @@ class DetailsFragment @Inject internal constructor(
     private val viewModelFactory: ViewModelFactory
 ): Fragment() {
     private lateinit var binding: DetailsFragmentBinding
+
+    private val viewModel: DetailsViewModel by viewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +32,10 @@ class DetailsFragment @Inject internal constructor(
             false
         )
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.detailsViewModel = viewModel
+
+        val objectNumber = DetailsFragmentArgs.fromBundle(requireArguments()).objectNumber
+        viewModel.objectNumberLiveData.postValue(objectNumber)
 
         return binding.root
     }
