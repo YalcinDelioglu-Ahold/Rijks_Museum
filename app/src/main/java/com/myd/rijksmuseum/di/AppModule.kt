@@ -9,11 +9,16 @@ import com.myd.rijksmuseum.framework.db.AppDatabase
 import com.myd.rijksmuseum.presentation.di.NavHostModule
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module(includes = [NavHostModule::class])
 object AppModule {
     private const val DATABASE_NAME = "rijks-museum-db"
+    private const val BASE_URL = "https://www.rijksmuseum.nl/api/nl/"
 
     @Singleton
     @Provides
@@ -34,7 +39,14 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideNetworkService() = RetrofitNetworkService()
+    fun provideRetrofit(): Retrofit = Retrofit.Builder().apply {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.apply { interceptor.level = HttpLoggingInterceptor.Level.BODY }
+        val okHttpClient = OkHttpClient.Builder().addInterceptor(interceptor).build()
+        baseUrl(BASE_URL)
+        client(okHttpClient)
+        addConverterFactory(GsonConverterFactory.create())
+    }.build()
 
     @Singleton
     @Provides
