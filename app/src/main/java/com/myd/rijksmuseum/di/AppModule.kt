@@ -58,28 +58,31 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideNetworkService(networkService: RetrofitNetworkService): NetworkService  = networkService
+    fun provideNetworkService(networkService: RetrofitNetworkService): NetworkService =
+        networkService
 
     @Singleton
     @Provides
-    fun provideRoomCollectionDataSource(collectionDataSource: RoomCollectionDataSource): CollectionDataSource = collectionDataSource
+    fun provideRoomCollectionDataSource(
+        collectionDataSource: RoomCollectionDataSource
+    ): CollectionDataSource = collectionDataSource
 
     @Singleton
     @Provides
-    fun provideDetailsDataSource(detailsDataSource: RoomDetailsDataSource): DetailsDataSource  = detailsDataSource
+    fun provideDetailsDataSource(detailsDataSource: RoomDetailsDataSource): DetailsDataSource =
+        detailsDataSource
 
     @Singleton
     @Provides
     fun provideAppComponent(
         @ApplicationContext context: Context
     ): AppComponent =
-        DaggerAppComponent.builder()
-            .appDependencies(
+        DaggerAppComponent.factory()
+            .create(
                 EntryPointAccessors.fromApplication(
                     context,
                     CoreModuleDependencies::class.java
                 )
             )
-            .build()
 }
 
