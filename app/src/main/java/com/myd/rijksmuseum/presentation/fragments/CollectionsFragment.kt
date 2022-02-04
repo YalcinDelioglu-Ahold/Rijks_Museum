@@ -12,18 +12,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.myd.rijksmuseum.R
 import com.myd.rijksmuseum.databinding.CollectionsFragmentBinding
 import com.myd.rijksmuseum.presentation.adapters.CollectionsAdapter
-import com.myd.rijksmuseum.presentation.di.FragmentScope
 import com.myd.rijksmuseum.presentation.viewmodels.CollectionsViewModel
-import com.myd.rijksmuseum.presentation.viewmodels.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@FragmentScope
-class CollectionsFragment @Inject internal constructor(
-    private val viewModelFactory: ViewModelFactory
-) : Fragment() {
+@AndroidEntryPoint
+class CollectionsFragment @Inject internal constructor() : Fragment() {
     private lateinit var binding: CollectionsFragmentBinding
 
-    private val viewModel: CollectionsViewModel by viewModels { viewModelFactory }
+    private val viewModel: CollectionsViewModel by viewModels()
 
     @Inject
     lateinit var adapter: CollectionsAdapter

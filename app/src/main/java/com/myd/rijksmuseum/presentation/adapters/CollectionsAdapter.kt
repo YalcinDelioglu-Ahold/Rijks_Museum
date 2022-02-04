@@ -2,17 +2,13 @@ package com.myd.rijksmuseum.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.myd.rijksmuseum.databinding.CollectionsItemBinding
 import com.myd.rijksmuseum.domain.Collection
-import com.myd.rijksmuseum.presentation.di.FragmentScope
-import com.myd.rijksmuseum.presentation.fragments.CollectionsFragmentDirections
 import javax.inject.Inject
 
-@FragmentScope
 class CollectionsAdapter @Inject internal constructor() :
     ListAdapter<Collection, CollectionsAdapter.CollectionItemViewHolder>(
         CollectionDiffCallback()

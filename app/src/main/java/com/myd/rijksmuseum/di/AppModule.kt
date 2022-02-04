@@ -2,23 +2,31 @@ package com.myd.rijksmuseum.di
 
 import android.content.Context
 import androidx.room.Room
+import com.myd.rijksmuseum.data.CollectionDataSource
+import com.myd.rijksmuseum.data.DetailsDataSource
+import com.myd.rijksmuseum.data.NetworkService
 import com.myd.rijksmuseum.framework.RetrofitNetworkService
 import com.myd.rijksmuseum.framework.datasource.RoomCollectionDataSource
 import com.myd.rijksmuseum.framework.datasource.RoomDetailsDataSource
 import com.myd.rijksmuseum.framework.db.AppDatabase
-import com.myd.rijksmuseum.presentation.di.NavHostModule
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.EntryPointAccessors
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@Module(includes = [NavHostModule::class])
+@InstallIn(SingletonComponent::class)
+@Module
 object AppModule {
     private const val DATABASE_NAME = "rijks-museum-db"
     private const val BASE_URL = "https://www.rijksmuseum.nl/api/nl/"
+
 
     @Singleton
     @Provides
@@ -50,27 +58,28 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideCoreComponent(
-        networkService: RetrofitNetworkService,
-        collectionDataSource: RoomCollectionDataSource,
-        detailsDataSource: RoomDetailsDataSource
-    ): CoreComponent =
-        DaggerCoreComponent.factory().create(
-            networkService,
-            collectionDataSource,
-            detailsDataSource
-        )
+    fun provideNetworkService(networkService: RetrofitNetworkService): NetworkService  = networkService
 
     @Singleton
     @Provides
-    fun provideGetCollectionsUseCase(
-        coreComponent: CoreComponent
-    ) = coreComponent.getCollectionsUseCase()
+    fun provideRoomCollectionDataSource(collectionDataSource: RoomCollectionDataSource): CollectionDataSource = collectionDataSource
 
     @Singleton
     @Provides
-    fun provideGetDetailsUseCase(
-        coreComponent: CoreComponent
-    ) = coreComponent.getDetailsUseCase()
+    fun provideDetailsDataSource(detailsDataSource: RoomDetailsDataSource): DetailsDataSource  = detailsDataSource
+
+    @Singleton
+    @Provides
+    fun provideAppComponent(
+        @ApplicationContext context: Context
+    ): AppComponent =
+        DaggerAppComponent.builder()
+            .appDependencies(
+                EntryPointAccessors.fromApplication(
+                    context,
+                    CoreModuleDependencies::class.java
+                )
+            )
+            .build()
 }
 

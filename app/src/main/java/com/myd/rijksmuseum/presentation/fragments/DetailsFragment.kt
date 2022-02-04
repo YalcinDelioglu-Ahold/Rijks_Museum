@@ -9,18 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.myd.rijksmuseum.R
 import com.myd.rijksmuseum.databinding.DetailsFragmentBinding
-import com.myd.rijksmuseum.presentation.di.FragmentScope
 import com.myd.rijksmuseum.presentation.viewmodels.DetailsViewModel
-import com.myd.rijksmuseum.presentation.viewmodels.ViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-@FragmentScope
-class DetailsFragment @Inject internal constructor(
-    private val viewModelFactory: ViewModelFactory
-): Fragment() {
+@AndroidEntryPoint
+class DetailsFragment @Inject internal constructor(): Fragment() {
     private lateinit var binding: DetailsFragmentBinding
 
-    private val viewModel: DetailsViewModel by viewModels { viewModelFactory }
+    private val viewModel: DetailsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,

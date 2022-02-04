@@ -6,12 +6,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.myd.rijksmuseum.domain.Collection
 import com.myd.rijksmuseum.launchDataFetch
-import com.myd.rijksmuseum.presentation.di.FragmentScope
 import com.myd.rijksmuseum.usecases.GetCollectionsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
-@FragmentScope
+@HiltViewModel
 class CollectionsViewModel @Inject internal constructor(
     private val getCollectionsUseCase: GetCollectionsUseCase
 ) : ViewModel() {
