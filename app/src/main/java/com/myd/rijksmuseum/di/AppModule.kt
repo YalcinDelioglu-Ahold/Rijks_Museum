@@ -2,17 +2,10 @@ package com.myd.rijksmuseum.di
 
 import android.content.Context
 import androidx.room.Room
-import com.myd.rijksmuseum.data.CollectionDataSource
-import com.myd.rijksmuseum.data.DetailsDataSource
-import com.myd.rijksmuseum.data.NetworkService
-import com.myd.rijksmuseum.framework.RetrofitNetworkService
-import com.myd.rijksmuseum.framework.datasource.RoomCollectionDataSource
-import com.myd.rijksmuseum.framework.datasource.RoomDetailsDataSource
 import com.myd.rijksmuseum.framework.db.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.EntryPointAccessors
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
